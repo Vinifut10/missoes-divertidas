@@ -509,7 +509,7 @@ function renderMenu(){
   const el=document.getElementById("sec-menu");
   const role=data.role, f=data.family;
   el.innerHTML=`<div class="card">
-    <div class="card-title"><h2>⚙️ Menu</h2><span>Versão 1.12.3135</span></div>
+    <div class="card-title"><h2>⚙️ Menu</h2><span>Versão 1.12.3136</span></div>
     <div style="text-align:center;padding:6px 0 14px">
       <div class="avatar profile-photo" id="menuAvatar" style="margin:0 auto 10px;width:82px;height:82px">${profileAvatarHtml(role,role==="parent"?"🧑":'<span style="font-size:38px">⭐</span>')}</div>
       <h2 style="margin-bottom:5px">${role==="parent"?esc(f.parent_name||f.display_name):esc(f.child_name||"Jogador(a)")}</h2>
@@ -544,7 +544,7 @@ function renderMenu(){
   const mr=document.getElementById("menuReport");if(mr)mr.onclick=()=>{activeSection="report";renderApp()};
   const mn=document.getElementById("menuNotifications");if(mn)mn.onclick=async()=>{if(!("Notification" in window)){toast("Notificações não são suportadas neste navegador.");return}try{const p=await Notification.requestPermission();toast(p==="granted"?"Notificações ativadas 🔔":"Permissão de notificações não concedida.")}catch{toast("Não foi possível ativar notificações.")}};
   const ma=document.getElementById("menuAchievements");if(ma)ma.onclick=()=>{activeSection="achievements";renderApp()};
-  const pab=document.getElementById("parentAlbumBtn");if(pab)pab.onclick=()=>{activeSection="album";renderApp();setTimeout(()=>document.getElementById("saveStickerSettings")?.scrollIntoView({behavior:"smooth",block:"center"}),100)};
+  const pab=document.getElementById("parentAlbumBtn");if(pab)pab.onclick=()=>{activeSection="store";renderApp();setTimeout(()=>document.getElementById("saveStickerSettings")?.scrollIntoView({behavior:"smooth",block:"center"}),350)};
   const pa=document.getElementById("openPlatformAdmin");if(pa)pa.onclick=async()=>{showLoader(true);try{platformData=await callPlatform("list");renderPlatformAdmin()}catch(e){toast(e.message)}finally{showLoader(false)}};
   const pushBtn=document.getElementById("enableParentPush");if(pushBtn)pushBtn.onclick=enableParentPush;
   const ps=document.getElementById("openParentSettings");if(ps)ps.onclick=async()=>{
