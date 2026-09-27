@@ -503,7 +503,7 @@ function renderApp(){
   <nav class="nav ${role==="child"?"child":""}">
     <button data-sec="home" class="${activeSection==="home"?"active":""}"><b>🏠</b>Hoje</button>
     <button data-sec="calendar" class="${activeSection==="calendar"?"active":""}"><b>📅</b>Calendário</button>
-    ${childNav?`<button data-sec="album" class="${activeSection==="album"?"active":""}"><b>📒</b>Álbum</button><button data-sec="friends" class="${activeSection==="friends"?"active":""}"><b>👫</b>Turma</button>`:`<button data-sec="album" class="${activeSection==="album"?"active":""}"><b>📒</b>Álbum</button><button data-sec="store" class="${activeSection==="store"?"active":""}"><b>🛍️</b>Loja</button>`}
+    ${childNav?`<button data-sec="album" class="${activeSection==="album"?"active":""}"><b>📒</b>Álbum</button><button data-sec="store" class="${activeSection==="store"?"active":""}"><b>🛍️</b>Loja</button>`:`<button data-sec="album" class="${activeSection==="album"?"active":""}"><b>📒</b>Álbum</button><button data-sec="store" class="${activeSection==="store"?"active":""}"><b>🛍️</b>Loja</button>`}
     <button data-sec="menu" class="${activeSection==="menu"?"active":""}"><b>☰</b>Menu</button>
   </nav>`;
   document.getElementById("profileMenuBtn").onclick=()=>{activeSection="menu";renderApp()};
@@ -516,7 +516,7 @@ function renderMenu(){
   const el=document.getElementById("sec-menu");
   const role=data.role, f=data.family;
   el.innerHTML=`<div class="card">
-    <div class="card-title"><h2>⚙️ Menu</h2><span>Versão 1.12.3138</span></div>
+    <div class="card-title"><h2>⚙️ Menu</h2><span>Versão 1.12.3139</span></div>
     <div style="text-align:center;padding:6px 0 14px">
       <div class="avatar profile-photo" id="menuAvatar" style="margin:0 auto 10px;width:82px;height:82px">${profileAvatarHtml(role,role==="parent"?"🧑":'<span style="font-size:38px">⭐</span>')}</div>
       <h2 style="margin-bottom:5px">${role==="parent"?esc(f.parent_name||f.display_name):esc(f.child_name||"Jogador(a)")}</h2>
@@ -934,7 +934,7 @@ async function renderStickerAlbum(){
 
 async function renderStore(){
   const el=document.getElementById("sec-store");if(!el)return;
-  if(data?.role==="child"){return renderCardShop(el)}
+  if(data?.role==="child"){el.innerHTML=`<div class="card"><div class="card-title"><h2>🛍️ Loja de Estrelas</h2><span>Carregando...</span></div></div>`;try{const r=await callApi("reward_store"),items=r.items||[];el.innerHTML=`<div class="hero" style="margin-bottom:14px"><div class="hero-top"><div><h2>🛍️ Loja de Estrelas</h2><p>Troque suas estrelas por recompensas.</p></div><div style="font-size:32px">⭐ ${r.availablePoints||data.totalPoints||0}</div></div></div><div class="store-grid">${items.map(x=>`<div class="store-item"><div class="reward-icon">${esc(x.emoji||"🎁")}</div><b>${esc(x.title)}</b><div class="small">⭐ ${x.cost}</div><button class="primary" disabled style="margin-top:8px;width:100%;opacity:.65">Peça ao responsável</button></div>`).join("")||`<div class="card" style="grid-column:1/-1"><div class="empty">O responsável ainda não cadastrou recompensas.</div></div>`}</div><div class="card"><div class="small">📒 As cartinhas ficam no Álbum. Esta loja é somente para outras recompensas cadastradas pelo responsável.</div></div>`}catch(e){el.innerHTML=`<div class="card"><div class="empty">${esc(e.message)}</div></div>`}return}
   const isParent=true;
   el.innerHTML=`<div class="card"><div class="card-title"><h2>🛍️ Loja de Estrelas</h2><span>Carregando...</span></div></div>`;
   try{
